@@ -10,6 +10,7 @@ var routes = require('./routes/index');
 // var users = require('./routes/users');
 var blog = require('./routes/blog');
 var ucenter = require('./routes/ucenter');
+var logout=require('./routes/logout');
 
 var db=require('./db.js');
 
@@ -57,6 +58,7 @@ app.use('/', routes);
 // app.use('/users', users);
 app.use('/blog', blog);
 app.use('/ucenter', ucenter);
+app.use('/logout', logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

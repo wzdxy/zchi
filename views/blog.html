@@ -1,6 +1,14 @@
 <body>
     <h2>标题：<%=title%></h2>
     <h2>博客正文：</h2><p><%=text%></p>
+
+    <div id="tool-bar">
+        <a href="#">收藏</a>
+        <%if(userAccess=='admin'){%>
+        <a href="#">编辑</a> <a href="blog/delete?postid=<%=blogId%>">删除</a><%}%>
+
+    </div>
+
     <div class="comments-header">
         <h2>评论区</h2>
     </div>

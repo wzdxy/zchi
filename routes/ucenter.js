@@ -11,28 +11,6 @@ router.get('/', function (req, res) {
     else res.render('login', {title: '请登录'});
 })
 
-// app.use(cookieParser());
-// app.use(session({
-//     secret: 'secret_user',
-//     name: 'name_user',
-//     cookie:{maxAge:600},
-//     httpOnly:true,
-//     resave:false,
-//     saveUninitialized:true
-// }))
-
-// app.use('/',function (req, res,next) {
-//     console.log('user', req.cookies.user);
-//     console.log('Signed Cookies: ', req.signedCookies)
-//     // res.cookie('user','test_user',{maxAge:24*3600});
-//     // console.log(req.session);
-//     console.log('session-id:'+req.session.id);
-//     console.log('session-cookie:'+req.session.cookie);
-//     req.session.userid = 'useridid';//写入至session
-//     // res.redirect(req.session.lastpage);//从session中读取
-//     next();
-// })
-
 router.post('/', function (req, res) {
     var query = {name: req.body.name, pw: req.body.password};
     var collection = db.collection('users');
@@ -41,6 +19,7 @@ router.post('/', function (req, res) {
             console.dir(result);
             req.session.username = req.body.name;//写入至session
             req.session.sign=true;
+            req.session.access=result[0].access;
             res.render('usercenter', {title: 'UserCenter', name: query.name});
         } else {
             res.redirect('/')
@@ -60,11 +39,12 @@ router.post('/postblog', function (req, res) {
     collection.insert({
         uid: uid,
         title: title,
-        text: text
+        text: text,
+        hidden:false
     }, function () {
         console.log('数据库写入完成');
-    })
-    res.render('postsuccess', {text: text});
+    });
+    res.redirect('/index');
 });
 
 
