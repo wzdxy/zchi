@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>my index</title>
+  </head>
+  <body>
+		<h1>Blog</h1>
+		<p>你好，<%=user==0?'游客':user%></p>
+		<p><a href="ucenter"><%=user==0?'管理员登录':'用户中心'%></a></p>
+		<ul>
+			<% for(var i=0;i<array.length;i++){ %>
+				<li>
+					<a href='/blog?blogId=<%=array[i].uid%>'><h3><%=array[i].title %></h3></a>
+					<%str=array[i].text,ln=str.length%>
+					<p><%=str.slice(0,ln>140?140:ln)%><%=ln>140?'...':''%><a href="/blog?blogId=<%=array[i].uid%>"><%=ln>140?'more':''%></a></p>
+				</li>
+			<%}%>
+		</ul>
+  </body>
+</html>
+

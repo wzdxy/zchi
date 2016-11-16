@@ -1,0 +1,53 @@
+<body>
+    <h2>标题：<%=title%></h2>
+    <h2>博客正文：</h2><p><%=text%></p>
+    <div class="comments-header">
+        <h2>评论区</h2>
+    </div>
+    <div id="comments-content">
+        <%if(comments.length==0){%>
+        <p>没有评论</p>
+        <%}%>
+        <% for(var i=0;i<comments.length;i++){ %>
+            <div class="comment-content" style="border: 1px solid;margin: 5px;">
+                <div class="comment-user"><%=comments[i].username%></div>
+                <div class="comment-text"><%=comments[i].text%></div>
+            </div>
+        <%}%>
+    </div>
+    <h2>发表评论：</h2>
+    <form  id="comment-form" blogid="<%=blogId%>"><!--action="blog/comment" method="post"-->
+        昵称：<input type="text" name="username" id='username'><br>
+        邮箱：<input type="text" name="email" id='email'><br>
+        内容：<textarea type="text" name="text" id='text'></textarea>
+
+    </form>
+    <br><button id='comment-btn' type="button">提交评论</button>
+    <br>
+    <a href="/">返回首页</a>
+</body>
+<script type="text/javascript">
+    document.getElementById('comment-btn').onclick=function(){
+        let form=document.getElementById('comment-form');
+        let data=new FormData(form);
+        data.append('postid',"<%=blogId%>");
+//        data.append('name',"<%=blogId%>");
+        console.log(data.get('username'));
+        console.log(data.get('postid'));
+
+        let ajaxData='username'+'='+document.getElementById('username').value+'&'+'email'+'='+document.getElementById('email').value+'&'+'text'+'='+document.getElementById('text').value+'&'+'postid'+'='+'<%=blogId%>';
+        console.log(ajaxData);
+        let xhr=new XMLHttpRequest();
+        xhr.open("post","blog/comment",true);
+        xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
+        xhr.onreadystatechange=function (r) {
+            if(xhr.status>=200&&xhr.status<=300){
+                window.location.reload();
+            }else{
+                alert('commit fault:'+xhr.status);
+            }
+        }
+        xhr.send(ajaxData);
+    }
+</script>
+</html>

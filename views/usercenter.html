@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title><%=title%></title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Hello <span style='text-decoration:underline'><%=name%></span></h1>
+    <p>你已经成功登录<a href="/index"> >>>返回首页</a></p>
+    <form action="ucenter/postblog" method="POST">
+        <lable for='title'>标题：</lable>
+        <div><input type="text" name='title'></div>
+        <lable for='title'>内容：</lable>
+        <div><textarea name="text" id="blog-text" cols="30" rows="10"></textarea></div>
+        <div><input type="submit" value="发布"></div>
+    </form>
+  </body>
+</html>
